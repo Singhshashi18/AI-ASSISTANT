@@ -1,8 +1,4 @@
 
-
-
-
-
 import { useState } from 'react'
 import { documentService } from '@/services/api'
 
@@ -86,146 +82,124 @@ export default function DocumentUpload() {
     }
   }
 
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#0b1120] via-[#0f172a] to-[#020617] text-white">
+      <div className="max-w-7xl mx-auto px-8 py-10">
 
+        {/* HEADER */}
+        <div className="mb-8 rounded-2xl bg-[#0f172a] border border-orange-500/30 p-6">
+          <h2 className="text-xl font-bold text-orange-400">
+            Upload Document
+          </h2>
+          <p className="text-orange-200/80 text-sm mt-1">
+            Add documents to generate embeddings
+          </p>
+        </div>
 
+        <div className="grid grid-cols-12 gap-8">
 
-return (
-  <div
-    className="max-w-4xl mx-auto
-    bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#1e293b]
-    border border-indigo-500/20
-    rounded-2xl
-    shadow-xl shadow-black/40
-    hover:shadow-indigo-900/40
-    transition-all duration-300
-    p-8 text-white"
-  >
-    <h2 className="text-2xl font-bold mb-8 flex items-center gap-3 text-indigo-300">
-      📄 Upload Document
-    </h2>
+          {/* CONTENT */}
+          <div className="col-span-12 ">
+            <div className="relative rounded-2xl bg-[#0f172a] border border-orange-500/30 p-8 overflow-hidden">
 
-    <form onSubmit={handleSubmit} className="space-y-6">
+              {/* DECOR */}
+              <div className="absolute -top-20 -right-20 h-56 w-56 rounded-full bg-orange-500/20" />
+              <div className="absolute -bottom-20 -left-20 h-56 w-56 rounded-full bg-orange-500/20" />
 
-      <input
-        type="text"
-        placeholder="Document title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="w-full px-5 py-3 rounded-xl
-        bg-indigo-900/40
-        border border-indigo-600/30
-        placeholder-indigo-300
-        focus:outline-none focus:ring-2 focus:ring-indigo-500
-        transition-all duration-200"
-        required
-      />
+              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
 
-      <textarea
-        placeholder="Description (optional)"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        rows={3}
-        className="w-full px-5 py-3 rounded-xl
-        bg-indigo-900/40
-        border border-indigo-600/30
-        placeholder-indigo-300
-        focus:outline-none focus:ring-2 focus:ring-indigo-500
-        transition-all duration-200"
-      />
+                <div>
+                  <label className="block text-sm text-orange-300 mb-2">
+                    Document Title
+                  </label>
+                  <input
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl
+                    bg-black/40 border border-orange-500/30
+                    focus:ring-2 focus:ring-orange-500"
+                    required
+                  />
+                </div>
 
-      {/* <div>
-        <label className="text-sm text-indigo-400 block mb-2">
-          Supported formats: PDF, TXT, DOC, DOCX
-        </label>
+                <div>
+                  <label className="block text-sm text-orange-300 mb-2">
+                    Description
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl
+                    bg-black/40 border border-orange-500/30
+                    focus:ring-2 focus:ring-orange-500"
+                  />
+                </div>
 
-        <input
-          type="file"
-          onChange={(e) => setFile(e.target.files[0])}
-          className="w-full text-sm text-indigo-200
-          file:mr-4 file:py-2 file:px-4
-          file:rounded-xl file:border-0
-          file:bg-gradient-to-r file:from-indigo-500 file:to-purple-600
-          file:text-white
-          hover:file:opacity-90"
-          accept=".pdf,.txt,.doc,.docx"
-          required
-        />
-      </div> */}
+                {/* FILE UPLOAD */}
+                <div className="flex flex-col gap-3">
+                  <label className="text-sm text-orange-300">
+                    Upload File
+                  </label>
 
+                  <label
+                    htmlFor="file-upload"
+                    className="flex flex-col items-center justify-center h-44
+                    cursor-pointer rounded-xl border-2 border-dashed
+                    border-orange-500/40 bg-orange-500/10
+                    hover:bg-orange-500/20 transition"
+                  >
+                    <div className="text-orange-400 text-3xl mb-2">⬆️</div>
+                    <p className="font-semibold text-orange-200">
+                      Drag & Drop or Click
+                    </p>
+                    <p className="text-xs text-orange-300 mt-1">
+                      PDF, TXT, DOC, DOCX
+                    </p>
 
+                    {file && (
+                      <p className="mt-2 text-sm text-green-400">
+                        {file.name}
+                      </p>
+                    )}
 
+                    <input
+                      id="file-upload"
+                      type="file"
+                      accept=".pdf,.txt,.doc,.docx"
+                      onChange={(e) => setFile(e.target.files[0])}
+                      className="hidden"
+                      required
+                    />
+                  </label>
+                </div>
 
-      <div className="flex flex-col gap-3">
-  <label className="text-sm text-indigo-400">
-    Drag & Drop Your File Here or Click to Browse *
-  </label>
+                {/* ACTIONS */}
+                <div className="flex items-center gap-4 pt-4">
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="px-6 py-3 rounded-xl font-semibold
+                    bg-gradient-to-r from-orange-500 to-orange-600
+                    hover:from-orange-400 hover:to-orange-500
+                    disabled:opacity-50 transition"
+                  >
+                    {loading ? 'Uploading…' : 'Upload'}
+                  </button>
 
-  <label
-    htmlFor="file-upload"
-    className="
-      flex flex-col items-center justify-center
-      h-44 cursor-pointer
-      rounded-xl
-      border-2 border-dashed border-indigo-500/40
-      bg-indigo-900/30
-      hover:bg-indigo-900/40
-      hover:border-indigo-400
-      transition-all duration-200
-      text-center
-    "
-  >
-    <div className="text-indigo-300 text-3xl mb-2">⬆️</div>
-    <p className="font-semibold text-indigo-200">Upload File</p>
-    <p className="text-sm text-indigo-400">Click to upload or drag & drop</p>
-    <p className="text-xs text-indigo-500 mt-1">
-      Supported file types: PDF, TXT, DOC, DOCX
-    </p>
+                  {status && (
+                    <span className="text-sm text-orange-200">
+                      {status}
+                    </span>
+                  )}
+                </div>
 
-    {file && (
-      <p className="mt-2 text-sm text-green-400">
-        Selected: {file.name}
-      </p>
-    )}
+              </form>
+            </div>
+          </div>
 
-    <input
-      id="file-upload"
-      type="file"
-      accept=".pdf,.txt,.doc,.docx"
-      onChange={(e) => setFile(e.target.files[0])}
-      className="hidden"
-      required
-    />
-  </label>
-</div>
-
-
-
-
-      <div className="flex items-center gap-4">
-        <button
-          type="submit"
-          disabled={loading}
-          className="px-6 py-3 rounded-xl
-          bg-gradient-to-r from-indigo-500 to-purple-600
-          hover:from-indigo-400 hover:to-purple-500
-          active:scale-95
-          shadow-lg shadow-indigo-900/40
-          transition-all duration-200
-          disabled:opacity-50"
-        >
-          {loading ? "Uploading..." : "Upload"}
-        </button>
-
-        {status && (
-          <span className="text-sm text-indigo-300 animate-pulse">
-            {status}
-          </span>
-        )}
+        </div>
       </div>
-
-    </form>
-  </div>
-)
-
-
+    </div>
+  )
 }

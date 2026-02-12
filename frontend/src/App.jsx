@@ -8,14 +8,14 @@ import Dashboard from '@/pages/Dashboard'
 import Chat from '@/pages/Chat'
 import Navbar from '@/components/Navbar'
 
-
+import Billing from '@/pages/Billing'
 import Pricing from '@/pages/Pricing'
 import Refer from '@/pages/Refer'
 import Services from '@/pages/Services'
 import Help from '@/pages/Help'
-
+import Documentation from './pages/Documentation'
 import Settings from '@/pages/Settings'
-
+import ActivityLog from '@/pages/ActivityLog'
 function ProtectedRoute({ children }) {
   const { isAuthenticated } = useAuth()
   return isAuthenticated ? children : <Navigate to="/login" replace />
@@ -64,7 +64,11 @@ function AppRoutes() {
       <Route path="/services" element={<Services />} />
       <Route path="/help" element={<Help />} />
       <Route path="/settings" element={<Settings />} />
+      <Route path="/billing" element={<Billing />} />
+    
+<Route path="/docs" element={<Documentation />} />
 
+<Route path="/activity" element={<ActivityLog />} />
       </Routes>
     </>
   )
