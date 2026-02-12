@@ -1,6 +1,12 @@
+
+
+
+
+
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '@/hooks/useAuth'
+import { Mail, Lock, User } from 'lucide-react'
 
 export default function Register() {
   const [name, setName] = useState('')
@@ -14,71 +20,151 @@ export default function Register() {
     try {
       await register(name, email, password)
       navigate('/dashboard')
-    } catch (err) {
-      // Error handled in hook
-    }
+    } catch (err) {}
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Create your account
-          </h2>
-        </div>
+    <div
+      className="min-h-screen flex bg-cover bg-center relative text-white"
+      style={{
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop')"
+      }}
+    >
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <div className="rounded-md bg-red-50 p-4">
-              <p className="text-sm font-medium text-red-800">{error}</p>
-            </div>
-          )}
+      {/* LEFT SIDE - Branding */}
+      <div className="hidden lg:flex w-1/2 items-center justify-center relative z-10 px-12">
+        <div className="backdrop-blur-2xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-12 max-w-lg w-full 
+                        hover:scale-105 transition-all duration-500">
 
-          <div className="space-y-4">
-            <input
-              type="text"
-              placeholder="Full name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              required
-            />
-            <input
-              type="email"
-              placeholder="Email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              required
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              required
-            />
+          <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+            🤖 QueryX
+          </h1>
+
+          <p className="text-indigo-200 mb-10 text-lg">
+            AI Knowledge Assistant built for intelligent document analysis
+          </p>
+
+          <ul className="space-y-5 text-gray-300 text-base">
+            <li className="flex items-center gap-3">
+              <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
+              Smart Document AI
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+              Context Aware Chat
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="w-2 h-2 bg-pink-400 rounded-full"></span>
+              Lightning Fast Embeddings
+            </li>
+          </ul>
+
+          <div className="mt-12 text-sm text-indigo-300">
+            Join 2,000+ developers building smarter apps
           </div>
+        </div>
+      </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-          >
-            {loading ? 'Creating account...' : 'Sign up'}
-          </button>
+      {/* RIGHT SIDE - Register Card */}
+      <div className="flex w-full lg:w-1/2 justify-center items-center px-6 relative z-10">
 
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
+        <div className="w-full max-w-md backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl shadow-2xl p-8">
+
+          <h2 className="text-3xl font-bold mb-2">
+            Create Account
+          </h2>
+
+          <p className="text-gray-300 mb-8">
+            Start using your AI Knowledge Assistant
+          </p>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+
+            {error && (
+              <div className="bg-red-500/10 text-red-400 p-3 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
+
+            {/* Name */}
+            <div className="relative">
+              <User className="absolute left-3 top-3 text-gray-400" size={18} />
+              <input
+                type="text"
+                placeholder="Full Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="w-full pl-10 pr-4 py-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+              />
+            </div>
+
+            {/* Email */}
+            <div className="relative">
+              <Mail className="absolute left-3 top-3 text-gray-400" size={18} />
+              <input
+                type="email"
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full pl-10 pr-4 py-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+              />
+            </div>
+
+            {/* Password */}
+            <div className="relative">
+              <Lock className="absolute left-3 top-3 text-gray-400" size={18} />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full pl-10 pr-4 py-3 rounded-lg bg-white/20 border border-white/30 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+              />
+            </div>
+
+            {/* Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 font-semibold shadow-lg hover:scale-105 active:scale-95 transition-all duration-200 disabled:opacity-50"
+            >
+              {loading ? 'Creating account...' : 'Sign Up'}
+            </button>
+
+            {/* Divider */}
+            <div className="flex items-center gap-3 text-gray-400 text-sm">
+              <div className="flex-1 h-px bg-white/20"></div>
+              OR
+              <div className="flex-1 h-px bg-white/20"></div>
+            </div>
+
+            {/* Google UI Button */}
+            <button
+              type="button"
+              className="w-full py-3 rounded-lg bg-white text-gray-800 font-medium hover:bg-gray-200 transition"
+            >
+              Continue with Google
+            </button>
+
+            {/* Login */}
+            <p className="text-center text-sm text-gray-300">
               Already have an account?{' '}
-              <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
-                Sign in
+              <Link
+                to="/login"
+                className="text-indigo-400 font-semibold hover:text-white transition"
+              >
+                Sign In
               </Link>
             </p>
-          </div>
-        </form>
+
+          </form>
+        </div>
       </div>
     </div>
   )

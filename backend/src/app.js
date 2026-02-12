@@ -26,4 +26,5 @@ app.use("/api/search", searchRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/admin", adminRoutes);
 
+
 export default app;
