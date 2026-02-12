@@ -6,6 +6,8 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.join(__dirname, "../.env") });
+console.log("OPENAI KEY isssssssss:", process.env.OPENAI_API_KEY);
+
 
 mongoose
   .connect(process.env.MONGO_URI)
